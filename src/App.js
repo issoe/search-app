@@ -1,10 +1,127 @@
-import logo from './logo.svg';
-import './App.css';
 import './input.css'
 import useDebounce from './hook/useDebounce';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { CardDefault } from './components/CardDefault';
+
+const myData = {
+  "took": 7,
+  "timed_out": false,
+  "_shards": {
+      "total": 1,
+      "successful": 1,
+      "skipped": 0,
+      "failed": 0
+  },
+  "hits": {
+      "total": {
+          "value": 1,
+          "relation": "eq"
+      },
+      "max_score": 1.0,
+      "hits": [
+          {
+              "_index": "posts",
+              "_id": "1",
+              "_score": 1.0,
+              "_source": {
+                  "is_deleted": false,
+                  "post_id": 1,
+                  "created_on": "2023-02-02T11:30:30.120Z",
+                  "is_accepted": true,
+                  "is_changed": false,
+                  "user_id": 1,
+                  "topic_id": 1,
+                  "post_content": "Visit New Zealand for stunning landscapes and adventure.",
+                  "title": "Travel Destination Recommendation"
+              }
+          },
+          {
+            "_index": "posts",
+            "_id": "1",
+            "_score": 1.0,
+            "_source": {
+                "is_deleted": false,
+                "post_id": 1,
+                "created_on": "2023-02-02T11:30:30.120Z",
+                "is_accepted": true,
+                "is_changed": false,
+                "user_id": 1,
+                "topic_id": 1,
+                "post_content": "Travel Destination Recommendation, Travel Destination Recommendation, Travel Destination Recommendation, Visit New Zealand for stunning landscapes and adventure.",
+                "title": "Travel Destination Recommendation"
+            }
+        },
+        {
+          "_index": "posts",
+          "_id": "1",
+          "_score": 1.0,
+          "_source": {
+              "is_deleted": false,
+              "post_id": 1,
+              "created_on": "2023-02-02T11:30:30.120Z",
+              "is_accepted": true,
+              "is_changed": false,
+              "user_id": 1,
+              "topic_id": 1,
+              "post_content": "Visit New Zealand for stunning landscapes and adventure.",
+              "title": "Travel Destination Recommendation"
+          }
+        },
+        ,
+        {
+          "_index": "posts",
+          "_id": "1",
+          "_score": 1.0,
+          "_source": {
+              "is_deleted": false,
+              "post_id": 1,
+              "created_on": "2023-02-02T11:30:30.120Z",
+              "is_accepted": true,
+              "is_changed": false,
+              "user_id": 1,
+              "topic_id": 1,
+              "post_content": "Visit New Zealand for stunning landscapes and adventure.",
+              "title": "Travel Destination Recommendation"
+          }
+        },
+        ,
+        {
+          "_index": "posts",
+          "_id": "1",
+          "_score": 1.0,
+          "_source": {
+              "is_deleted": false,
+              "post_id": 1,
+              "created_on": "2023-02-02T11:30:30.120Z",
+              "is_accepted": true,
+              "is_changed": false,
+              "user_id": 1,
+              "topic_id": 1,
+              "post_content": "Visit New Zealand for stunning landscapes and adventure.",
+              "title": "Travel Destination Recommendation"
+          }
+        },
+        ,
+        {
+          "_index": "posts",
+          "_id": "1",
+          "_score": 1.0,
+          "_source": {
+              "is_deleted": false,
+              "post_id": 1,
+              "created_on": "2023-02-02T11:30:30.120Z",
+              "is_accepted": true,
+              "is_changed": false,
+              "user_id": 1,
+              "topic_id": 1,
+              "post_content": "Visit New Zealand for stunning landscapes and adventure.",
+              "title": "Travel Destination Recommendation"
+          }
+        }
+      ]
+  }
+}
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
@@ -17,26 +134,32 @@ function App() {
 
 
   useEffect(() => {
+    setDataSearch(myData.hits.hits?.map(post => { return { ...post._source } }));
+    // if (debounce.trim().length > 0) {
+    //   const data = {
+    //     "query": {
+    //       "prefix": {
+    //         "title": debounce.trim(),
+    //       }
+    //     }
+    //   }
 
-    if (debounce.trim().length > 0) {
-      const data = {
-        "query": {
-          "prefix": {
-            "title": debounce.trim(),
-          }
-        }
-      }
+    //   axios.post('http://localhost:9200/posts/_search', data, {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       // 'Access-Control-Allow-Origin': '*',
+    //     }
+    //   })
+    //     .then((response) => {
+    //       console.log("response", response.data.hits.hits);
+    //       // setDataSearch(response.data.hits.hits?.map(post => { return { ...post._source } }));
 
-      axios.post('http://localhost:9200/posts/_search', data)
-        .then((response) => {
-          console.log("response", response.data.hits.hits);
-          setDataSearch(response.data.hits.hits?.map(post => { return { ...post._source } }));
-
-        })
-        .catch((error) => {
-          console.log("Error", error);
-        })
-    }
+    //       setDataSearch(myData.hits.hits?.map(post => { return { ...post._source } }));
+    //     })
+    //     .catch((error) => {
+    //       console.log("Error", error);
+    //     })
+    // }
 
   }, [debounce])
 
@@ -56,7 +179,6 @@ function App() {
     const temp = e.target.value;
     if (!temp.startsWith(' ')) {
       setSearchValue(temp);
-
     }
     if (temp === '') {
     }
@@ -77,7 +199,7 @@ function App() {
         <div className="text-gray-100 text-xl">
           <div className="p-2.5 mt-1 flex items-center">
             <i className="bi bi-app-indicator px-2 py-1 rounded-md bg-blue-600"></i>
-            <h1 className="font-bold text-gray-200 text-[15px] ml-3">TailwindCSS</h1>
+            <h1 className="font-bold text-gray-200 text-[15px] ml-3">AIQuest</h1>
             <i
               className="bi bi-x cursor-pointer ml-28 lg:hidden"
               onClick={() => openSidebar()}
@@ -101,6 +223,12 @@ function App() {
           className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
         >
           <i className="bi bi-house-door-fill"></i>
+          <span className="text-[15px] ml-4 text-gray-200 font-bold">Profile</span>
+        </div>
+        <div
+          className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+        >
+          <i className="bi bi-house-door-fill"></i>
           <span className="text-[15px] ml-4 text-gray-200 font-bold">Search</span>
         </div>
 
@@ -110,7 +238,12 @@ function App() {
           <i className="bi bi-bookmark-fill"></i>
           <span className="text-[15px] ml-4 text-gray-200 font-bold">Import</span>
         </div>
-
+        <div
+          className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+        >
+          <i className="bi bi-house-door-fill"></i>
+          <span className="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+        </div>
         <div className="my-4 bg-gray-600 h-[1px]"></div>
 
         <div
@@ -145,7 +278,7 @@ function App() {
           className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
         >
           <i className="bi bi-box-arrow-in-right"></i>
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+          <span className="text-[15px] ml-4 text-gray-200 font-bold">Login</span>
         </div>
       </div>
 
@@ -170,25 +303,22 @@ function App() {
         {/* Dropdown here */}
       </div>
       <div className='ml-[300px] mt-[100px]'>
-        <h1>Result</h1>
-
         {
           dataSearch?.length > 0 ?
-            (<ul>
+            (<div className='grid grid-cols-1 lg:grid-cols-2 flex justify-items-center justify-center'>
               {dataSearch.map((data, index) => {
-                return <CardDefault key={index} content={data.post_content} createdOn={data.created_on}/>;
+                return <CardDefault key={index} content={data.post_content} createdOn={myData.created_on}/>;
               })}
-            </ul>) :
+              
+            </div>) :
             (<ul>
-              empty
+              emptyasdfasd
             </ul>)
         }
-
-
       </div>
 
-      <div className='ml-[300px] mt-[100px]'>
-        <h1>Recently</h1>
+      {/* <div className='ml-[300px] mt-[100px]'>
+        <h1>Recently-----</h1>
         <ul>
           <li> -{'>'} travel</li>
           <li> -{'>'} Invention</li>
@@ -202,7 +332,7 @@ function App() {
           <li> -{'>'} Invention</li>
           <li> -{'>'} Destination</li>
         </ul>
-      </div>
+      </div> */}
     </>
   );
 }
