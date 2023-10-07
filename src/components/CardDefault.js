@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { Outlet, Link } from "react-router-dom";
 
-export function CardDefault({ content, createdOn }) {
+export default function CardDefault({ content, createdOn }) {
     return (
         <Card className="flex flex-row mt-4 border border-gray-400 bg-slate-100 mx-4">
             <img

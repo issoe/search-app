@@ -2,7 +2,8 @@ import './input.css'
 import useDebounce from './hook/useDebounce';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { CardDefault } from './components/CardDefault';
+import CardDefault from './components/CardDefault';
+import Modal from './components/Modal';
 
 const myData = {
   "took": 7,
@@ -123,7 +124,7 @@ const myData = {
   }
 }
 
-function App() {
+export default function App() {
   const [searchValue, setSearchValue] = useState('')
   const debounce = useDebounce(searchValue, 700);
   const [dataSearch, setDataSearch] = useState(false)
@@ -238,41 +239,7 @@ function App() {
           <i className="bi bi-bookmark-fill"></i>
           <span className="text-[15px] ml-4 text-gray-200 font-bold">Import</span>
         </div>
-        <div
-          className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-        >
-          <i className="bi bi-house-door-fill"></i>
-          <span className="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
-        </div>
         <div className="my-4 bg-gray-600 h-[1px]"></div>
-
-        <div
-          className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
-          onClick={() => dropdown()}
-        >
-          <i className="bi bi-chat-left-text-fill"></i>
-          <div className="flex justify-between w-full items-center">
-            <span className="text-[15px] ml-4 text-gray-200 font-bold">Chatbox</span>
-            <span className="text-sm rotate-180" id="arrow">
-              <i className="bi bi-chevron-down"></i>
-            </span>
-          </div>
-        </div>
-
-        <div
-          className="text-left text-sm mt-2 w-4/5 mx-auto text-gray-200 font-bold"
-          id="submenu"
-        >
-          <h1 className="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-            Social
-          </h1>
-          <h1 className="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-            Personal
-          </h1>
-          <h1 className="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-            Friends
-          </h1>
-        </div>
 
         <div
           className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
@@ -302,6 +269,9 @@ function App() {
         </div>
         {/* Dropdown here */}
       </div>
+      
+        <div  className='ml-[300px]'><Modal/></div>
+
       <div className='ml-[300px] mt-[100px]'>
         {
           dataSearch?.length > 0 ?
@@ -316,7 +286,7 @@ function App() {
             </ul>)
         }
       </div>
-
+        
       {/* <div className='ml-[300px] mt-[100px]'>
         <h1>Recently-----</h1>
         <ul>
@@ -336,5 +306,3 @@ function App() {
     </>
   );
 }
-
-export default App;
