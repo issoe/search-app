@@ -1,9 +1,13 @@
+/* eslint-disable no-sparse-arrays */
 import './input.css';
 import useDebounce from './hook/useDebounce';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import CardDefault from './components/CardDefault';
 import Modal from './components/Modal';
+import app from './firebase';
+import { signOut, getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const myData = {
     took: 7,
@@ -126,6 +130,13 @@ const myData = {
 };
 
 export default function App() {
+    // firebase
+    const auth = getAuth(app);
+
+    // navigate
+    const navigate = useNavigate();
+
+    // useState
     const [searchValue, setSearchValue] = useState('');
     const debounce = useDebounce(searchValue, 700);
     const [dataSearch, setDataSearch] = useState(false);
@@ -133,6 +144,8 @@ export default function App() {
     // Ref
     const inputRef = useRef();
 
+    // useEffect
+    // search
     useEffect(() => {
         setDataSearch(
             myData.hits.hits?.map((post) => {
@@ -166,6 +179,19 @@ export default function App() {
         // }
     }, [debounce]);
 
+    // checking user who is logging in
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            // Having an user who logging in
+            if (user) {
+                console.log('Co nguoi dang dang nhap');
+            } else {
+                navigate('/login');
+            }
+        });
+    }, []);
+
+    // function
     function dropdown() {
         document.querySelector('#submenu').classList.toggle('hidden');
         document.querySelector('#arrow').classList.toggle('rotate-0');
@@ -185,6 +211,19 @@ export default function App() {
         }
         if (temp === '') {
         }
+    };
+
+    // function logout
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                alert('Đã đăng xuất');
+                navigate('/login');
+            })
+            .catch((error) => {
+                alert('không thể đăng xuất');
+                console.log(error);
+            });
     };
 
     return (
@@ -229,9 +268,12 @@ export default function App() {
                 </div>
                 <div className="my-4 bg-gray-600 h-[1px]"></div>
 
-                <div className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <div
+                    onClick={handleLogout}
+                    className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+                >
                     <i className="bi bi-box-arrow-in-right"></i>
-                    <span className="text-[15px] ml-4 text-gray-200 font-bold">Login</span>
+                    <span className="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
                 </div>
             </div>
 

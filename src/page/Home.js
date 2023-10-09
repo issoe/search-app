@@ -1,22 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-sparse-arrays */
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import { signOut, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
 import '../input.css';
 
-import { CardDefault } from '../components/CardDefault';
-import Modal from '../components/Modal';
-import ViewPdf from '../components/ViewPdf';
-import ReactDOM from 'react-dom';
-import BasicInfo from '../components/BasicInfo';
-
-import SRSFile from './SRS.pdf';
-
 import app from '../firebase';
-
+import Modal from '../components/Modal';
+import CardDefault from '../components/CardDefault';
 import useDebounce from '../hook/useDebounce';
 
 const myData = {
@@ -139,7 +130,7 @@ const myData = {
     },
 };
 
-export default function DocumentDetail() {
+export default function Home() {
     // firebase
     const auth = getAuth(app);
 
@@ -155,18 +146,7 @@ export default function DocumentDetail() {
     const inputRef = useRef();
 
     // useEffect
-    // checking user who is logging in
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            // Having an user who logging in
-            if (user) {
-                console.log('Co nguoi dang dang nhap');
-            } else {
-                navigate('/login');
-            }
-        });
-    }, []);
-
+    // search
     useEffect(() => {
         setDataSearch(
             myData.hits.hits?.map((post) => {
@@ -200,35 +180,19 @@ export default function DocumentDetail() {
         // }
     }, [debounce]);
 
-    // function
-    const onButtonClick = () => {
-        // using Java Script method to get PDF file
-        fetch('SRS.pdf').then((response) => {
-            response.blob().then((blob) => {
-                // Creating new object of PDF file
-                const fileURL = window.URL.createObjectURL(blob);
-                // Setting various property values
-                let alink = document.createElement('a');
-                alink.href = fileURL;
-                alink.download = 'SRS.pdf';
-                alink.click();
-            });
-        });
-    };
-
-    // function logout
-    const handleLogout = () => {
-        signOut(auth)
-            .then(() => {
-                alert('Đã đăng xuất');
+    // checking user who is logging in
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            // Having an user who logging in
+            if (user) {
+                console.log('Co nguoi dang dang nhap');
+            } else {
                 navigate('/login');
-            })
-            .catch((error) => {
-                alert('không thể đăng xuất');
-                console.log(error);
-            });
-    };
+            }
+        });
+    }, []);
 
+    // function
     function dropdown() {
         document.querySelector('#submenu').classList.toggle('hidden');
         document.querySelector('#arrow').classList.toggle('rotate-0');
@@ -250,6 +214,19 @@ export default function DocumentDetail() {
         }
     };
 
+    // function logout
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                alert('Đã đăng xuất');
+                navigate('/login');
+            })
+            .catch((error) => {
+                alert('không thể đăng xuất');
+                console.log(error);
+            });
+    };
+
     return (
         <>
             <span className="absolute text-white text-4xl top-5 left-4 cursor-pointer" onClick={() => openSidebar()}>
@@ -267,15 +244,15 @@ export default function DocumentDetail() {
                 </div>
 
                 {/* <div
-            className="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 text-white"
-          >
-            <i className="bi bi-search text-sm"></i>
-            <input
-              type="text"
-              placeholder="Search"
-              className="text-[15px] ml-4 w-full bg-transparent focus:outline-none"
-            />
-          </div> */}
+          className="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 text-white"
+        >
+          <i className="bi bi-search text-sm"></i>
+          <input
+            type="text"
+            placeholder="Search"
+            className="text-[15px] ml-4 w-full bg-transparent focus:outline-none"
+          />
+        </div> */}
 
                 <div className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
                     <i className="bi bi-house-door-fill"></i>
@@ -332,32 +309,37 @@ export default function DocumentDetail() {
             </div>
 
             <div className="ml-[300px]">
-                {/* <BasicInfo /> */}
-                <div className="border border-indigo-600 h-96 bg-[red]">
-                    <ViewPdf />
-                    <a href={SRSFile} download="Example-PDF-document" target="_blank" rel="noreferrer">
-                        <button>Download .pdf file</button>
-                    </a>
-                    <button onClick={onButtonClick}>Download PDF</button>
-                </div>
+                <Modal />
+            </div>
+
+            <div className="ml-[300px] mt-[100px]">
+                {dataSearch?.length > 0 ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 flex justify-items-center justify-center">
+                        {dataSearch.map((data, index) => {
+                            return <CardDefault key={index} content={data.post_content} createdOn={myData.created_on} />;
+                        })}
+                    </div>
+                ) : (
+                    <ul>emptyasdfasd</ul>
+                )}
             </div>
 
             {/* <div className='ml-[300px] mt-[100px]'>
-          <h1>Recently-----</h1>
-          <ul>
-            <li> -{'>'} travel</li>
-            <li> -{'>'} Invention</li>
-            <li> -{'>'} Destination</li>
-          </ul>
-        </div>
-        <div className='ml-[300px] mt-[100px]'>
-          <h1>Suggestion</h1>
-          <ul>
-            <li> -{'>'} travel</li>
-            <li> -{'>'} Invention</li>
-            <li> -{'>'} Destination</li>
-          </ul>
-        </div> */}
+        <h1>Recently-----</h1>
+        <ul>
+          <li> -{'>'} travel</li>
+          <li> -{'>'} Invention</li>
+          <li> -{'>'} Destination</li>
+        </ul>
+      </div>
+      <div className='ml-[300px] mt-[100px]'>
+        <h1>Suggestion</h1>
+        <ul>
+          <li> -{'>'} travel</li>
+          <li> -{'>'} Invention</li>
+          <li> -{'>'} Destination</li>
+        </ul>
+      </div> */}
         </>
     );
 }
