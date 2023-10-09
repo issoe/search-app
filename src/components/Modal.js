@@ -9,7 +9,7 @@ export default function Modal() {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        Open regular modal
+        Upload
       </button>
       {showModal ? (
         <>
@@ -33,8 +33,9 @@ export default function Modal() {
                     </span>
                   </button>
                 </div>
+
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
+                {/* <div className="relative p-6 flex-auto">
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
                     I always felt like I could do anything. That’s the main
                     thing people are controlled by! Thoughts- their perception
@@ -42,7 +43,7 @@ export default function Modal() {
                     themselves. If you're taught you can’t do anything, you
                     won’t do anything. I was taught I could do everything.
                   </p>
-                </div>
+                </div> */}
 
                 <div class="flex items-center justify-center w-full">
                     <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
