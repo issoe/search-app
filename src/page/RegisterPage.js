@@ -46,8 +46,7 @@ function RegisterPage() {
                 .then((userCredential) => {
                     // Signed up
                     alert('Đăng ký thành công');
-                    // const user = userCredential.user;
-                    // ...
+                    navigate('/login');
                 })
                 .catch((error) => {
                     const errorCode = error.code;
