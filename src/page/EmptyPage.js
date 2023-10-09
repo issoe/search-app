@@ -1,5 +1,3 @@
 export default function EmptyPage() {
-    return <>
-        This is empty page
-    </>
+    return <>This is empty page</>;
 }

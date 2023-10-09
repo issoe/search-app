@@ -1,12 +1,5 @@
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-    Button,
-} from "@material-tailwind/react";
-import { Outlet, Link } from "react-router-dom";
+import { Card, CardHeader, CardBody, CardFooter, Typography, Button } from '@material-tailwind/react';
+import { Outlet, Link } from 'react-router-dom';
 
 export default function CardDefault({ content, createdOn }) {
     return (
@@ -17,13 +10,14 @@ export default function CardDefault({ content, createdOn }) {
                 src="../../pdf.png"
                 alt="nature image"
             />
-        
-            
+
             <CardBody className="w-full">
-                <Link to="/document"><p className="text-lg font-semibold mx-2 py-2">Listening & Speaking for IELTS with Answer Key</p></Link>
+                <Link to="/document">
+                    <p className="text-lg font-semibold mx-2 py-2">Listening & Speaking for IELTS with Answer Key</p>
+                </Link>
                 {/* <Link to="/document"><p className="text-lg font-semibold mx-2 underline">Introduction</p></Link> */}
-                
-                <div className='flex flex-row'>
+
+                <div className="flex flex-row">
                     <ul className="list-disc list-inside text-base font-normal mx-2">
                         <li className="flex justify-between items-center mt-3">
                             <div className="font-normal text-slate-700 hover:text-blue-600">{content} ádfasdfasd...</div>

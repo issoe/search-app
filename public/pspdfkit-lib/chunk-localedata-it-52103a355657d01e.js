@@ -10,4 +10,30 @@
  *
  * PSPDFKit uses several open source third-party components: https://pspdfkit.com/acknowledgements/web/
  */
-(self.webpackChunkPSPDFKit=self.webpackChunkPSPDFKit||[]).push([[3424],{81998:()=>{Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({data:{it:{categories:{cardinal:["one","other"],ordinal:["many","other"]},fn:function(a,l){var e=!String(a).split(".")[1];return l?11==a||8==a||80==a||800==a?"many":"other":1==a&&e?"one":"other"}}},availableLocales:["it"]})}}]);
+(self.webpackChunkPSPDFKit = self.webpackChunkPSPDFKit || []).push([
+    [3424],
+    {
+        81998: () => {
+            Intl.PluralRules &&
+                'function' == typeof Intl.PluralRules.__addLocaleData &&
+                Intl.PluralRules.__addLocaleData({
+                    data: {
+                        it: {
+                            categories: { cardinal: ['one', 'other'], ordinal: ['many', 'other'] },
+                            fn: function (a, l) {
+                                var e = !String(a).split('.')[1];
+                                return l
+                                    ? 11 == a || 8 == a || 80 == a || 800 == a
+                                        ? 'many'
+                                        : 'other'
+                                    : 1 == a && e
+                                    ? 'one'
+                                    : 'other';
+                            },
+                        },
+                    },
+                    availableLocales: ['it'],
+                });
+        },
+    },
+]);

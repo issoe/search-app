@@ -10,4 +10,24 @@
  *
  * PSPDFKit uses several open source third-party components: https://pspdfkit.com/acknowledgements/web/
  */
-(self.webpackChunkPSPDFKit=self.webpackChunkPSPDFKit||[]).push([[9486],{80953:()=>{Intl.PluralRules&&"function"==typeof Intl.PluralRules.__addLocaleData&&Intl.PluralRules.__addLocaleData({data:{nl:{categories:{cardinal:["one","other"],ordinal:["other"]},fn:function(a,l){var e=!String(a).split(".")[1];return l?"other":1==a&&e?"one":"other"}}},availableLocales:["nl"]})}}]);
+(self.webpackChunkPSPDFKit = self.webpackChunkPSPDFKit || []).push([
+    [9486],
+    {
+        80953: () => {
+            Intl.PluralRules &&
+                'function' == typeof Intl.PluralRules.__addLocaleData &&
+                Intl.PluralRules.__addLocaleData({
+                    data: {
+                        nl: {
+                            categories: { cardinal: ['one', 'other'], ordinal: ['other'] },
+                            fn: function (a, l) {
+                                var e = !String(a).split('.')[1];
+                                return l ? 'other' : 1 == a && e ? 'one' : 'other';
+                            },
+                        },
+                    },
+                    availableLocales: ['nl'],
+                });
+        },
+    },
+]);
