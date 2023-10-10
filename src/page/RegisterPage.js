@@ -65,11 +65,11 @@ function RegisterPage() {
                     {/* <!-- Left column container with background--> */}
                     <div className="g-6 flex w-[80%] h-full flex-wrap items-center justify-center lg:justify-between">
                         {/* <!-- Right column container --> */}
-                        <div className="flex justify-center mb-12 md:mb-4 md:w-9/12 lg:w-5/12 xl:w-5/12">
+                        <div className="flex justify-center mb-12 md:mt-12 md:mb-4 md:w-9/12 lg:w-5/12 xl:w-5/12">
                             <div className="w-[80%]">
                                 {/* <!--Sign in section--> */}
                                 <div className="flex w-[100%] justify-center lg">
-                                    <p className="mb-0 mr-4 text-[40px] font-bold">Sign Up Now!</p>
+                                    <p className="mb-0 text-[40px] font-bold">Sign Up Now!</p>
                                 </div>
 
                                 {/* <!-- Separator between social media sign in and email/password sign in --> */}
@@ -182,7 +182,7 @@ function RegisterPage() {
                             </div>
                         </div>
 
-                        <div className="flex shrink-1 mb-12 grow-0 basis-auto md:mt-12 mt-12 md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12 justify-center">
+                        <div className="flex shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12 justify-center">
                             <img
                                 src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                                 className="w-[80%]"

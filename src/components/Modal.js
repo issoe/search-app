@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Modal() {
-    const [showModal, setShowModal] = React.useState(false);
+    const [showModal, setShowModal] = useState(false);
     return (
         <>
             <button
-                className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => setShowModal(true)}
             >
@@ -29,17 +29,6 @@ export default function Modal() {
                                         </span>
                                     </button>
                                 </div>
-
-                                {/*body*/}
-                                {/* <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
-                  </p>
-                </div> */}
 
                                 <div class="flex items-center justify-center w-full">
                                     <label
@@ -95,7 +84,9 @@ export default function Modal() {
                     </div>
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
                 </>
-            ) : null}
+            ) : (
+                ''
+            )}
         </>
     );
 }

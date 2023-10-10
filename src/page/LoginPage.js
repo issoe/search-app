@@ -132,9 +132,8 @@ export default function LoginPage() {
                                 <input
                                     className="w-full h-full rounded border-2 pl-2 pr-4 focus:outline-2 focus:outline focus:outline-blue-500"
                                     type="email"
-                                    label="Email address"
                                     size="lg"
-                                    placeholder="Email..."
+                                    placeholder="Email address..."
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     onKeyDown={(e) => {
